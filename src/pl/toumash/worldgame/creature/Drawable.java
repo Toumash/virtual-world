@@ -1,7 +1,7 @@
-package pl.toumash.worldgame;
+package pl.toumash.worldgame.creature;
 
 import java.awt.*;
 
-interface Drawable {
+public interface Drawable {
     void draw(Graphics g, double scaleX, double scaleY);
 }

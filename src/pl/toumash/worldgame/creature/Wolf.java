@@ -1,9 +1,9 @@
-package pl.toumash.worldgame;
+package pl.toumash.worldgame.creature;
 
 import java.awt.*;
 
-class Wolf extends Animal {
-    Wolf(int x, int y) {
+public class Wolf extends Animal {
+    public Wolf(int x, int y) {
         super(x, y, Color.red);
     }
 

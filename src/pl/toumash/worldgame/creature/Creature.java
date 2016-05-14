@@ -1,8 +1,9 @@
-package pl.toumash.worldgame;
+package pl.toumash.worldgame.creature;
+
 
 import java.awt.*;
 
-abstract class Creature implements Drawable {
+public abstract class Creature implements Drawable {
     private int x, y;
 
     Creature(int x, int y) {

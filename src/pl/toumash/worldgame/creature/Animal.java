@@ -1,8 +1,9 @@
-package pl.toumash.worldgame;
+package pl.toumash.worldgame.creature;
+
 
 import java.awt.*;
 
-abstract class Animal extends Creature {
+public abstract class Animal extends Creature {
     private Color color;
 
     Animal(int x, int y, Color c) {
