@@ -3,11 +3,14 @@ package pl.toumash.worldgame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 class GameView extends JPanel {
     private World world;
     private JFrame jFrame;
+    private JPopupMenu jPopupMenu = new JPopupMenu("troll");
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> new GameView().display());
@@ -26,16 +29,41 @@ class GameView extends JPanel {
         JMenu options = new JMenu("Options");
         bar.add(options);
 
-        JMenu exit = new JMenu("exit");
+        JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(e -> System.exit(0));
-        bar.add(options);
+        file.add(exit);
         frame.setJMenuBar(bar);
     }
 
-    void render(Graphics2D g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+    private void setUpPopUpMenu() {
+        JMenuItem item = new JMenuItem("Add Wolf");
+        item.addActionListener(e -> System.out.println("xd")/*world.spawn()*/);
+        this.jPopupMenu.add(item);
+        //this.jPopupMenu.add()
+        this.jFrame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
 
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.isPopupTrigger())
+                    jPopupMenu.show(e.getComponent(), e.getX(), e.getY());
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
     }
 
     @Override
@@ -47,7 +75,8 @@ class GameView extends JPanel {
     }
 
     public void start() {
-        this.world = new World(20, 20);
+        world = new World(20, 20);
+        world.randominit();
     }
 
     public void display() {
@@ -64,5 +93,7 @@ class GameView extends JPanel {
         jFrame.setVisible(true);
 
         setUpMenu(this.jFrame);
+        setUpPopUpMenu();
     }
+
 }
