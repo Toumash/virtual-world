@@ -3,6 +3,7 @@ package pl.toumash.worldgame;
 import pl.toumash.worldgame.creature.Creature;
 import pl.toumash.worldgame.creature.Wolf;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 class World {
@@ -26,4 +27,13 @@ class World {
         return this.height;
     }
 
+    public void spawn(Creature creature) {
+        this.creatures.add(creature);
+    }
+
+    public void draw(Graphics g, double scaleX, double scaleY) {
+        for (Creature c : creatures) {
+            c.draw(g, scaleX, scaleY);
+        }
+    }
 }

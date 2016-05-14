@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Wolf extends Animal {
     public Wolf(int x, int y) {
-        super(x, y, Color.red);
+        super(x, y, Color.white);
     }
 
     @Override

@@ -8,6 +8,7 @@ public abstract class Animal extends Creature {
 
     Animal(int x, int y, Color c) {
         super(x, y);
+        this.color = c;
     }
 
     @Override

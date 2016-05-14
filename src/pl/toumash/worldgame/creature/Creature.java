@@ -3,7 +3,7 @@ package pl.toumash.worldgame.creature;
 
 import java.awt.*;
 
-public abstract class Creature implements Drawable {
+public abstract class Creature implements Drawable, Cloneable {
     private int x, y;
 
     Creature(int x, int y) {
@@ -17,6 +17,13 @@ public abstract class Creature implements Drawable {
     public abstract void spread();
 
     public abstract void collide(Creature c);
+
+    @Override
+    public Creature clone() {
+        try {
+            return (Creature) super.clone();
+        } catch (Exception ignore) { return null;}
+    }
 
     public int getX() {
         return x;

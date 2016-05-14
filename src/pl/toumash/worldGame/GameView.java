@@ -1,6 +1,8 @@
 package pl.toumash.worldgame;
 
 
+import pl.toumash.worldgame.creature.CreaturesFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -8,12 +10,26 @@ import java.awt.event.MouseListener;
 
 
 class GameView extends JPanel {
+    int x, y;
     private World world;
     private JFrame jFrame;
-    private JPopupMenu jPopupMenu = new JPopupMenu("troll");
+    private JPopupMenu jPopupMenu = new JPopupMenu("Spawn Creature");
+
+    public GameView() {
+        world = new World(20, 20);
+        world.randominit();
+    }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> new GameView().display());
+    }
+
+    public double getScaleX() {
+        return getWidth() / world.getWidth();
+    }
+
+    public double getScaleY() {
+        return getHeight() / world.getHeight();
     }
 
     void showDialog(String message, String caption, int messageType) {
@@ -36,11 +52,18 @@ class GameView extends JPanel {
     }
 
     private void setUpPopUpMenu() {
-        JMenuItem item = new JMenuItem("Add Wolf");
-        item.addActionListener(e -> System.out.println("xd")/*world.spawn()*/);
-        this.jPopupMenu.add(item);
-        //this.jPopupMenu.add()
-        this.jFrame.addMouseListener(new MouseListener() {
+        for (CreaturesFactory.Creatures creature : CreaturesFactory.Creatures.values()) {
+            JMenuItem item = new JMenuItem(creature.name());
+            item.addActionListener(e -> {
+                world.spawn(CreaturesFactory.create(creature, (int) (x / getScaleX()), (int) (y / getScaleY())));
+                System.out.println("spawning creature" + creature.name() + "(" + (x / getScaleX()) + "," + (y / getScaleY()) + ")");
+                GameView.this.repaint();
+                GameView.this.doLayout();
+            });
+            jPopupMenu.add(item);
+        }
+
+        addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
@@ -51,9 +74,11 @@ class GameView extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (e.isPopupTrigger())
+                if (e.isPopupTrigger()) {
+                    x = e.getX();
+                    y = e.getY();
                     jPopupMenu.show(e.getComponent(), e.getX(), e.getY());
-
+                }
             }
 
             @Override
@@ -70,14 +95,10 @@ class GameView extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.red);
-        g.drawRect(0, 0, 20, 20);
+
+        world.draw(g,getScaleX(),getScaleY());
     }
 
-    public void start() {
-        world = new World(20, 20);
-        world.randominit();
-    }
 
     public void display() {
         jFrame = new JFrame("Game of Life <Toumash Dłuski 160741>");
@@ -95,5 +116,4 @@ class GameView extends JPanel {
         setUpMenu(this.jFrame);
         setUpPopUpMenu();
     }
-
 }
