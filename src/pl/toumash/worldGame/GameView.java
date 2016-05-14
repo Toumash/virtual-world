@@ -3,11 +3,9 @@ package pl.toumash.worldgame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 
-class GameView extends JPanel implements MouseListener {
+class GameView extends JPanel {
     private World world;
     private JFrame jFrame;
 
@@ -45,29 +43,7 @@ class GameView extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.red);
-        g.drawRect(0,0,20,20);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        //  e.getX(), e.getY(;
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
+        g.drawRect(0, 0, 20, 20);
     }
 
     public void start() {
@@ -87,7 +63,6 @@ class GameView extends JPanel implements MouseListener {
         jFrame.add(this);
         jFrame.setVisible(true);
 
-        addMouseListener(this);
         setUpMenu(this.jFrame);
     }
 }
