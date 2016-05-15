@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 
 
 class GameView extends JPanel {
-    int x, y;
+    int cursorX, cursorY;
     private World world;
     private JFrame jFrame;
     private JPopupMenu jPopupMenu = new JPopupMenu("Spawn Creature");
@@ -55,10 +55,16 @@ class GameView extends JPanel {
         for (CreaturesFactory.Creatures creature : CreaturesFactory.Creatures.values()) {
             JMenuItem item = new JMenuItem(creature.name());
             item.addActionListener(e -> {
-                world.spawn(CreaturesFactory.create(creature, (int) (x / getScaleX()), (int) (y / getScaleY())));
-                System.out.println("spawning creature" + creature.name() + "(" + (x / getScaleX()) + "," + (y / getScaleY()) + ")");
-                GameView.this.repaint();
-                GameView.this.doLayout();
+                int x = (int) (cursorX / getScaleX());
+                int y = (int) (cursorY / getScaleY());
+
+                if (world.isOccupied(x, y)) {
+                    world.spawn(CreaturesFactory.create(creature, x, y));
+                    System.out.println("spawning " + creature.name() + "(" + x + "," + y + ")");
+                    GameView.this.repaint();
+                } else {
+                    showDialog("Choose a free area", "ERROR", Dialog.ERROR);
+                }
             });
             jPopupMenu.add(item);
         }
@@ -75,8 +81,8 @@ class GameView extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (e.isPopupTrigger()) {
-                    x = e.getX();
-                    y = e.getY();
+                    cursorX = e.getX();
+                    cursorY = e.getY();
                     jPopupMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
@@ -96,7 +102,7 @@ class GameView extends JPanel {
         super.paintComponent(g);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        world.draw(g,getScaleX(),getScaleY());
+        world.draw(g, getScaleX(), getScaleY());
     }
 
 

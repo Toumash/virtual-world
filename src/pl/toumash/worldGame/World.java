@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 class World {
-    ArrayList<Creature> creatures = new ArrayList<>();
+    private ArrayList<Creature> creatures = new ArrayList<>();
     private int width, height;
 
     World(int width, int height) {
@@ -35,5 +35,14 @@ class World {
         for (Creature c : creatures) {
             c.draw(g, scaleX, scaleY);
         }
+    }
+
+    public boolean isOccupied(int x, int y) {
+                for(Creature c : creatures){
+                    if(c.getX() == x && c.getY() ==y){
+                        return true;
+                    }
+                }
+        return false;
     }
 }
