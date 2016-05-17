@@ -1,13 +1,13 @@
-package pl.toumash.worldgame;
+package pl.toumash.virtualworld;
 
-import pl.toumash.worldgame.creature.Animal;
-import pl.toumash.worldgame.creature.Creature;
-import pl.toumash.worldgame.creature.CreaturesFactory;
-import pl.toumash.worldgame.creature.animal.Antilope;
-import pl.toumash.worldgame.creature.animal.Human;
-import pl.toumash.worldgame.creature.animal.Turtle;
-import pl.toumash.worldgame.creature.plant.Guarana;
-import pl.toumash.worldgame.creature.plant.NightShade;
+import pl.toumash.virtualworld.creature.Animal;
+import pl.toumash.virtualworld.creature.Creature;
+import pl.toumash.virtualworld.creature.CreaturesFactory;
+import pl.toumash.virtualworld.creature.animal.Antilope;
+import pl.toumash.virtualworld.creature.animal.Human;
+import pl.toumash.virtualworld.creature.animal.Turtle;
+import pl.toumash.virtualworld.creature.plant.Guarana;
+import pl.toumash.virtualworld.creature.plant.NightShade;
 
 import java.awt.*;
 import java.io.Serializable;

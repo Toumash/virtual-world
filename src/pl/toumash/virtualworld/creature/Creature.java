@@ -1,10 +1,10 @@
-package pl.toumash.worldgame.creature;
+package pl.toumash.virtualworld.creature;
 
 
-import pl.toumash.worldgame.Direction;
-import pl.toumash.worldgame.Drawable;
-import pl.toumash.worldgame.GameWorld;
-import pl.toumash.worldgame.Position;
+import pl.toumash.virtualworld.Direction;
+import pl.toumash.virtualworld.Drawable;
+import pl.toumash.virtualworld.GameWorld;
+import pl.toumash.virtualworld.Position;
 
 import java.awt.*;
 import java.io.Serializable;

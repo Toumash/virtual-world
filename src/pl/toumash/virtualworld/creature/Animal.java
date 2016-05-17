@@ -1,8 +1,8 @@
-package pl.toumash.worldgame.creature;
+package pl.toumash.virtualworld.creature;
 
 
-import pl.toumash.worldgame.Direction;
-import pl.toumash.worldgame.GameWorld;
+import pl.toumash.virtualworld.Direction;
+import pl.toumash.virtualworld.GameWorld;
 
 import java.awt.*;
 import java.util.Random;

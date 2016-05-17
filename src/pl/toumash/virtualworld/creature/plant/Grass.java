@@ -1,8 +1,8 @@
-package pl.toumash.worldgame.creature.plant;
+package pl.toumash.virtualworld.creature.plant;
 
 
-import pl.toumash.worldgame.GameWorld;
-import pl.toumash.worldgame.creature.DrawConfig;
+import pl.toumash.virtualworld.GameWorld;
+import pl.toumash.virtualworld.creature.DrawConfig;
 
 public class Grass extends Plant {
     public Grass(GameWorld gameWorld, int x, int y) {

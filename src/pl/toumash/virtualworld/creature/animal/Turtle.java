@@ -1,8 +1,8 @@
-package pl.toumash.worldgame.creature.animal;
+package pl.toumash.virtualworld.creature.animal;
 
-import pl.toumash.worldgame.GameWorld;
-import pl.toumash.worldgame.creature.Animal;
-import pl.toumash.worldgame.creature.DrawConfig;
+import pl.toumash.virtualworld.GameWorld;
+import pl.toumash.virtualworld.creature.Animal;
+import pl.toumash.virtualworld.creature.DrawConfig;
 
 import java.util.Random;
 

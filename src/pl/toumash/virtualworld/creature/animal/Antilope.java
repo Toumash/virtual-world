@@ -1,9 +1,9 @@
-package pl.toumash.worldgame.creature.animal;
+package pl.toumash.virtualworld.creature.animal;
 
-import pl.toumash.worldgame.Direction;
-import pl.toumash.worldgame.GameWorld;
-import pl.toumash.worldgame.creature.Animal;
-import pl.toumash.worldgame.creature.DrawConfig;
+import pl.toumash.virtualworld.Direction;
+import pl.toumash.virtualworld.GameWorld;
+import pl.toumash.virtualworld.creature.Animal;
+import pl.toumash.virtualworld.creature.DrawConfig;
 
 import java.util.Random;
 
@@ -29,11 +29,11 @@ public class Antilope extends Animal {
         if (!canMove(Direction.values()[secondMove]) || isBackTrack(Direction.values()[firstMove], Direction.values()[secondMove])) {
             secondMove = 0;
             do {
-                if(secondMove < Direction.values().length) {
+                if (secondMove + 1 < Direction.values().length) {
                     secondMove++;
                 }
             }
-            while (secondMove < Direction.values().length
+            while (secondMove + 1 < Direction.values().length
                     && (!canMove(Direction.values()[secondMove])
                     || isBackTrack(Direction.values()[firstMove], Direction.values()[secondMove])));
         }

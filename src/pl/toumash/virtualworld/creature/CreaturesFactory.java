@@ -1,11 +1,11 @@
-package pl.toumash.worldgame.creature;
+package pl.toumash.virtualworld.creature;
 
-import pl.toumash.worldgame.GameWorld;
-import pl.toumash.worldgame.creature.animal.*;
-import pl.toumash.worldgame.creature.plant.Dandelion;
-import pl.toumash.worldgame.creature.plant.Grass;
-import pl.toumash.worldgame.creature.plant.Guarana;
-import pl.toumash.worldgame.creature.plant.NightShade;
+import pl.toumash.virtualworld.GameWorld;
+import pl.toumash.virtualworld.creature.animal.*;
+import pl.toumash.virtualworld.creature.plant.Dandelion;
+import pl.toumash.virtualworld.creature.plant.Grass;
+import pl.toumash.virtualworld.creature.plant.Guarana;
+import pl.toumash.virtualworld.creature.plant.NightShade;
 
 public class CreaturesFactory {
     public static Creature create(GameWorld w, Creatures name, int x, int y) {

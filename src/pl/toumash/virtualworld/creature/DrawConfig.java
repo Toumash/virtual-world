@@ -1,4 +1,4 @@
-package pl.toumash.worldgame.creature;
+package pl.toumash.virtualworld.creature;
 
 
 import java.awt.*;

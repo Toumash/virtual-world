@@ -1,7 +1,7 @@
-package pl.toumash.worldgame;
+package pl.toumash.virtualworld;
 
 
-import pl.toumash.worldgame.creature.CreaturesFactory;
+import pl.toumash.virtualworld.creature.CreaturesFactory;
 
 import javax.swing.*;
 import java.awt.*;

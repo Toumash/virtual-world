@@ -1,4 +1,4 @@
-package pl.toumash.worldgame;
+package pl.toumash.virtualworld;
 
 import java.io.Serializable;
 
