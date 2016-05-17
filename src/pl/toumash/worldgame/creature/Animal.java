@@ -8,18 +8,11 @@ import java.awt.*;
 import java.util.Random;
 
 public abstract class Animal extends Creature {
-    private Color color;
 
     Animal(GameWorld w, int x, int y, int strength, int priority, Color c) {
-        super(w, x, y, strength, priority);
-        this.color = c;
+        super(w, x, y, strength, priority, c);
     }
 
-    @Override
-    public void draw(Graphics g, double scaleX, double scaleY) {
-        g.setColor(color);
-        g.fillRect((int) (getX() * scaleX), (int) (getY() * scaleY), (int) scaleX, (int) scaleY);
-    }
 
     public void giveBirth() {
         Direction dir = null;

@@ -2,13 +2,12 @@ package pl.toumash.worldgame.creature;
 
 import pl.toumash.worldgame.GameWorld;
 
-import java.awt.*;
 import java.util.Random;
 
 public class Turtle extends Animal {
 
     public Turtle(GameWorld w, int x, int y) {
-        super(w, x, y, 2, 1, Color.green);
+        super(w, x, y, 2, 1, DrawConfig.TURTLE);
     }
 
     @Override

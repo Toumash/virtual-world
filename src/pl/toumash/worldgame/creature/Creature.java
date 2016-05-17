@@ -14,16 +14,15 @@ public abstract class Creature implements Drawable, Cloneable {
     int priority;
     boolean alive = true;
     private Position coords;
+    private Color color;
 
-    public Creature(GameWorld gameWorld, int x, int y, int strength, int priority) {
+    public Creature(GameWorld gameWorld, int x, int y, int strength, int priority, Color c) {
         this.gameWorld = gameWorld;
         this.coords = new Position(x, y);
         this.strength = strength;
         this.priority = priority;
+        this.color = c;
     }
-
-    @Override
-    public abstract void draw(Graphics g, double scaleX, double scaleY);
 
     public abstract void update();
 
@@ -61,6 +60,12 @@ public abstract class Creature implements Drawable, Cloneable {
     public Creature move(Direction d) {
         coords.move(d);
         return this;
+    }
+
+    @Override
+    public void draw(Graphics g, double scaleX, double scaleY) {
+        g.setColor(color);
+        g.fillRect((int) (getX() * scaleX), (int) (getY() * scaleY), (int) scaleX, (int) scaleY);
     }
 
     public boolean canMove(Direction d) {
