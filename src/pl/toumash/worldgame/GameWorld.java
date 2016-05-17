@@ -75,4 +75,10 @@ public class GameWorld {
         }
         return false;
     }
+
+    public void update() {
+        for (Creature c : creatures) {
+            c.update();
+        }
+    }
 }

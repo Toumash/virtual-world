@@ -125,21 +125,24 @@ class GameView extends JPanel implements KeyListener {
 
         setUpMenu(this.jFrame);
         setUpPopUpMenu();
-        addKeyListener(this);
+        jFrame.addKeyListener(this);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        gameGameWorld.update();
+        this.repaint();
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        gameGameWorld.update();
+        this.repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        gameGameWorld.update();
+        this.repaint();
     }
 }

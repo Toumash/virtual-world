@@ -32,10 +32,11 @@ public abstract class Animal extends Creature {
             spawn(dir);
         }
     }
+
     @Override
-    public void update(){
+    public void update() {
         Random r = new Random();
-        int d = r.nextInt();
+        int d = r.nextInt(Direction.values().length);
         move(Direction.values()[d]);
     }
 
