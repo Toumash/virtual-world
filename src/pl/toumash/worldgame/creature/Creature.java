@@ -62,6 +62,33 @@ public abstract class Creature implements Drawable, Cloneable {
         return this;
     }
 
+    public boolean isStrongerThan(Creature c) {
+        if (c == null) {
+            return true;
+        }
+        return this.strength > c.strength;
+    }
+
+    public boolean isStrongerThan(Direction d) {
+        int dX = 0;
+        int dY = 0;
+        switch (d) {
+            case up:
+                dY -= 1;
+                break;
+            case down:
+                dY = +1;
+                break;
+            case left:
+                dX = -1;
+                break;
+            case right:
+                dX = +1;
+                break;
+        }
+        return isStrongerThan(gameWorld.getCreature(getX() + dX, getY() + dY));
+    }
+
     @Override
     public void draw(Graphics g, double scaleX, double scaleY) {
         g.setColor(color);

@@ -94,4 +94,13 @@ public class GameWorld {
                 player.move(dir);
         }
     }
+
+    public Creature getCreature(int x, int y) {
+        for(Creature c : creatures){
+            if(c.getX() == x && c.getY() == y){
+                return c;
+            }
+        }
+        return null;
+    }
 }
