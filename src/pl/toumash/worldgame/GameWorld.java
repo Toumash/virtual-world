@@ -1,6 +1,8 @@
 package pl.toumash.worldgame;
 
 import pl.toumash.worldgame.creature.Creature;
+import pl.toumash.worldgame.creature.Direction;
+import pl.toumash.worldgame.creature.Position;
 import pl.toumash.worldgame.creature.Wolf;
 
 import java.awt.*;
@@ -49,5 +51,30 @@ public class GameWorld {
 
     public boolean inBounds(int x, int y) {
         return (x >= 0 && x < getWidth()) && (y >= 0 && y < getHeight());
+    }
+
+    public boolean isOccupied(int x, int y, Direction d) {
+        int dX = 0, dY = 0;
+        // TODO: remove duplicate code
+        switch (d) {
+            case up:
+                dY = -1;
+                break;
+            case down:
+                dY = +1;
+                break;
+            case left:
+                dX = -1;
+                break;
+            case right:
+                dX = +1;
+                break;
+        }
+        for (Creature c : creatures) {
+            if (c.getX() + dX == x && c.getY() + dY == y) {
+                return true;
+            }
+        }
+        return false;
     }
 }

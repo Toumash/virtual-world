@@ -9,7 +9,7 @@ public abstract class Animal extends Creature {
     private Color color;
 
     Animal(GameWorld w, int x, int y, Color c) {
-        super(w,x, y);
+        super(w, x, y);
         this.color = c;
     }
 
@@ -19,8 +19,18 @@ public abstract class Animal extends Creature {
         g.fillRect((int) (getX() * scaleX), (int) (getY() * scaleY), (int) scaleX, (int) scaleY);
     }
 
-    @Override
-    public abstract void spread();
+    public void giveBirth() {
+        Direction dir = null;
+        for (Direction d : Direction.values()) {
+            if (!gameWorld.isOccupied(getX(), getY(), d)) {
+                dir = d;
+            }
+        }
+        if (dir != null) {
+            spawn(dir);
+        }
+    }
+
 
     @Override
     public abstract void collide(Creature c);

@@ -8,7 +8,7 @@ public class Position implements Cloneable {
         this.y = y;
     }
 
-    public void move(Direction d) {
+    public Position move(Direction d) {
         // deltas
         int dX = 0;
         int dY = 0;
@@ -28,5 +28,6 @@ public class Position implements Cloneable {
         }
         x += dX;
         y += dY;
+        return this;
     }
 }

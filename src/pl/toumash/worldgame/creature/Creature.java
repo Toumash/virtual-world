@@ -17,7 +17,18 @@ public abstract class Creature implements Drawable, Cloneable {
     @Override
     public abstract void draw(Graphics g, double scaleX, double scaleY);
 
-    public abstract void spread();
+    protected Direction findFreeSpace() {
+        for (Direction d : Direction.values()) {
+            if (!gameWorld.isOccupied(getX(), getY(), d)) {
+                return d;
+            }
+        }
+        return null;
+    }
+
+    protected void spawn(Direction d) {
+        gameWorld.spawn(this.clone().move(d));
+    }
 
     public abstract void collide(Creature c);
 
@@ -29,8 +40,9 @@ public abstract class Creature implements Drawable, Cloneable {
         return false;
     }
 
-    private void move(Direction d) {
+    private Creature move(Direction d) {
         coords.move(d);
+        return this;
     }
 
     private boolean canMove(Direction d) {
