@@ -1,6 +1,7 @@
 package pl.toumash.worldgame.creature;
 
 import pl.toumash.worldgame.GameWorld;
+import pl.toumash.worldgame.creature.animal.Wolf;
 
 public class CreaturesFactory {
     public enum Creatures{

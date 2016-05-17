@@ -1,7 +1,9 @@
-package pl.toumash.worldgame.creature;
+package pl.toumash.worldgame.creature.animal;
 
 import pl.toumash.worldgame.Direction;
 import pl.toumash.worldgame.GameWorld;
+import pl.toumash.worldgame.creature.Animal;
+import pl.toumash.worldgame.creature.DrawConfig;
 
 import java.util.Random;
 

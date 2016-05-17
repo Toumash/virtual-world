@@ -9,7 +9,7 @@ import java.util.Random;
 
 public abstract class Animal extends Creature {
 
-    Animal(GameWorld w, int x, int y, int strength, int priority, Color c) {
+    protected Animal(GameWorld w, int x, int y, int strength, int priority, Color c) {
         super(w, x, y, strength, priority, c);
     }
 

@@ -1,8 +1,8 @@
 package pl.toumash.worldgame;
 
 import pl.toumash.worldgame.creature.Creature;
-import pl.toumash.worldgame.creature.Human;
-import pl.toumash.worldgame.creature.Wolf;
+import pl.toumash.worldgame.creature.animal.Human;
+import pl.toumash.worldgame.creature.animal.Wolf;
 
 import java.awt.*;
 import java.util.ArrayList;
