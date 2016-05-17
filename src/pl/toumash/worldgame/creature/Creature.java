@@ -15,6 +15,7 @@ public abstract class Creature implements Drawable, Cloneable {
     boolean alive = true;
     private Position coords;
     private Color color;
+    private Position prevCoords;
 
     public Creature(GameWorld gameWorld, int x, int y, int strength, int priority, Color c) {
         this.gameWorld = gameWorld;
@@ -22,6 +23,7 @@ public abstract class Creature implements Drawable, Cloneable {
         this.strength = strength;
         this.priority = priority;
         this.color = c;
+        this.prevCoords = new Position(x, y);
     }
 
     public abstract void update();
@@ -58,6 +60,8 @@ public abstract class Creature implements Drawable, Cloneable {
     }
 
     public Creature move(Direction d) {
+        this.prevCoords.setX(getX());
+        this.prevCoords.setY(getY());
         coords.move(d);
         return this;
     }
@@ -113,7 +117,7 @@ public abstract class Creature implements Drawable, Cloneable {
                 dX = +1;
                 break;
         }
-        return gameWorld.inBounds(coords.x + dX, coords.y + dY);
+        return gameWorld.inBounds(coords.getX() + dX, coords.getY() + dY);
     }
 
     @Override
@@ -126,19 +130,22 @@ public abstract class Creature implements Drawable, Cloneable {
     }
 
     public int getX() {
-        return coords.x;
+        return coords.getX();
     }
 
     public void setX(int x) {
-        this.coords.x = x;
+        this.prevCoords.setX(getX());
+        this.coords.setX(x);
     }
 
     public int getY() {
-        return coords.y;
+        return coords.getY();
     }
 
     public void setY(int y) {
-        this.coords.y = y;
+        this.prevCoords.setY(getY());
+        this.coords.setY(y);
+
     }
 
 }

@@ -1,7 +1,25 @@
 package pl.toumash.worldgame;
 
 public class Position implements Cloneable {
-    public int x, y;
+    private int x;
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    private int y;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public Position(int x, int y) {
         this.x = x;
