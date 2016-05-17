@@ -7,8 +7,9 @@ import pl.toumash.worldgame.GameWorld;
 import pl.toumash.worldgame.Position;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Creature implements Drawable, Cloneable {
+public abstract class Creature implements Drawable, Cloneable,Serializable {
     protected GameWorld gameWorld;
     int strength;
     int priority;

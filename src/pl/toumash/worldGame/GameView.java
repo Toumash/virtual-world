@@ -9,18 +9,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.*;
 
 
 class GameView extends JPanel implements KeyListener {
     int cursorX, cursorY;
-    private GameWorld gameGameWorld;
+    private GameWorld gameWorld;
     private JFrame jFrame;
     private JPopupMenu jPopupMenu = new JPopupMenu("Spawn Creature");
     private int counter = 0;
 
     public GameView() {
-        gameGameWorld = new GameWorld(20, 20);
-        gameGameWorld.randominit();
+        gameWorld = new GameWorld(20, 20);
+        gameWorld.randominit();
     }
 
     public static void main(String[] args) {
@@ -28,11 +29,11 @@ class GameView extends JPanel implements KeyListener {
     }
 
     public double getScaleX() {
-        return getWidth() / gameGameWorld.getWidth();
+        return getWidth() / gameWorld.getWidth();
     }
 
     public double getScaleY() {
-        return getHeight() / gameGameWorld.getHeight();
+        return getHeight() / gameWorld.getHeight();
     }
 
     void showDialog(String message, String caption, int messageType) {
@@ -42,16 +43,60 @@ class GameView extends JPanel implements KeyListener {
     private void setUpMenu(JFrame frame) {
         JMenuBar bar = new JMenuBar();
         bar.setBounds(0, 0, frame.getWidth(), 25);
-        JMenu file = new JMenu("File");
-        bar.add(file);
+
+        JMenu gameMenu = new JMenu("Game");
+        bar.add(gameMenu);
+        JMenuItem save = new JMenuItem("Save game");
+        save.addActionListener(e -> saveGame());
+        JMenuItem load = new JMenuItem("Load game");
+        load.addActionListener(e -> loadGame());
+        gameMenu.add(save);
+        gameMenu.add(load);
 
         JMenu options = new JMenu("Options");
         bar.add(options);
 
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(e -> System.exit(0));
-        file.add(exit);
+        gameMenu.add(exit);
         frame.setJMenuBar(bar);
+    }
+
+    private void saveGame() {
+        try {
+            File saveFile = new File("game.save");
+            if (!saveFile.exists()) {
+                saveFile.createNewFile();
+            }
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(saveFile));
+            out.writeObject(gameWorld);
+            out.close();
+            showDialog("gamestate saved", "OK", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            showDialog("Error writing save file", "ERROR", JOptionPane.ERROR_MESSAGE);
+            showDialog(e.getMessage(), "ERROR", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    private void loadGame() {
+        try {
+            File saveFile = new File("game.save");
+            if (!saveFile.exists()) {
+                showDialog("I cant find your saveFile", "Error loading gamestate", JOptionPane.WARNING_MESSAGE);
+            }
+            ObjectInputStream out = new ObjectInputStream(new FileInputStream(saveFile));
+            GameWorld g = (GameWorld) out.readObject();
+            out.close();
+            showDialog("Gamestate loaded <OK!>", "OK", JOptionPane.INFORMATION_MESSAGE);
+            this.gameWorld = g;
+            repaint();
+        } catch (IOException e) {
+            showDialog("Error writing save file", "ERROR", JOptionPane.PLAIN_MESSAGE);
+            showDialog(e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e) {
+            showDialog("De-Serializing Error", "ERROR", JOptionPane.ERROR_MESSAGE);
+            showDialog(e.getMessage(), "ERROR", JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
     private void setUpPopUpMenu() {
@@ -61,8 +106,8 @@ class GameView extends JPanel implements KeyListener {
                 int x = (int) (cursorX / getScaleX());
                 int y = (int) (cursorY / getScaleY());
 
-                if (!gameGameWorld.isOccupied(x, y)) {
-                    gameGameWorld.spawn(CreaturesFactory.create(gameGameWorld, creature, x, y));
+                if (!gameWorld.isOccupied(x, y)) {
+                    gameWorld.spawn(CreaturesFactory.create(gameWorld, creature, x, y));
                     System.out.println("spawning " + creature.name() + "(" + x + "," + y + ")");
                     GameView.this.repaint();
                 } else {
@@ -105,7 +150,7 @@ class GameView extends JPanel implements KeyListener {
         super.paintComponent(g);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        gameGameWorld.draw(g, getScaleX(), getScaleY());
+        gameWorld.draw(g, getScaleX(), getScaleY());
         g.drawString(String.valueOf(counter++), 5, 10);
     }
 
@@ -150,8 +195,8 @@ class GameView extends JPanel implements KeyListener {
                 break;
         }
 
-        gameGameWorld.playerMove(dir);
-        gameGameWorld.update();
+        gameWorld.playerMove(dir);
+        gameWorld.update();
         this.repaint();
     }
 

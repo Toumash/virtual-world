@@ -10,10 +10,11 @@ import pl.toumash.worldgame.creature.plant.Guarana;
 import pl.toumash.worldgame.creature.plant.NightShade;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameWorld {
+public class GameWorld implements Serializable{
     private ArrayList<Creature> creatures = new ArrayList<>();
     private ArrayList<Creature> corpses = new ArrayList<>();
     private Human player;
