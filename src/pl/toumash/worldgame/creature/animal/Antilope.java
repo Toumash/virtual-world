@@ -40,7 +40,7 @@ public class Antilope extends Animal {
         }
     }
 
-    public void Flee() {
+    public void flee() {
         Direction d = null;
         for (int i = 0; i < Direction.values().length; i++) {
             d = Direction.values()[i];

@@ -3,19 +3,15 @@ package pl.toumash.worldgame.creature;
 
 import pl.toumash.worldgame.Direction;
 import pl.toumash.worldgame.GameWorld;
-import pl.toumash.worldgame.Position;
 
 import java.awt.*;
 import java.util.Random;
 
 public abstract class Animal extends Creature {
 
-
-
     protected Animal(GameWorld w, int x, int y, int strength, int priority, Color c) {
         super(w, x, y, strength, priority, c);
     }
-
 
     public void giveBirth() {
         Direction dir = null;

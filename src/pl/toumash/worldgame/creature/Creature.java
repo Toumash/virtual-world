@@ -148,4 +148,20 @@ public abstract class Creature implements Drawable, Cloneable {
 
     }
 
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void cancelMove() {
+        setY(prevCoords.getY());
+        setX(prevCoords.getX());
+    }
 }

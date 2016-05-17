@@ -1,14 +1,21 @@
 package pl.toumash.worldgame;
 
+import pl.toumash.worldgame.creature.Animal;
 import pl.toumash.worldgame.creature.Creature;
+import pl.toumash.worldgame.creature.animal.Antilope;
 import pl.toumash.worldgame.creature.animal.Human;
+import pl.toumash.worldgame.creature.animal.Turtle;
 import pl.toumash.worldgame.creature.animal.Wolf;
+import pl.toumash.worldgame.creature.plant.Guarana;
+import pl.toumash.worldgame.creature.plant.NightShade;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameWorld {
     private ArrayList<Creature> creatures = new ArrayList<>();
+    private ArrayList<Creature> corpses = new ArrayList<>();
     private Creature player;
     private int width, height;
 
@@ -81,11 +88,115 @@ public class GameWorld {
     }
 
     public void update() {
+        update(7);
+        update(5);
+        update(4);
+        update(1);
+
+        checkCollisions();
+        clearGarbage();
+    }
+
+    private void clearGarbage() {
+        for (Creature c : corpses) {
+            creatures.remove(c);
+        }
+    }
+
+    public void update(int priority) {
         for (Creature c : creatures) {
-            if (c.isAlive()) {
+            if (priority == c.getPriority() && c.isAlive()) {
                 c.update();
             }
         }
+    }
+
+    private void addEvent(String x) {
+        //TODO: aading events
+    }
+
+    private void checkCollisions() {
+        for (int i = 0, length = creatures.size(); i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                if (j != i) {
+                    Creature a = creatures.get(i);
+                    Creature b = creatures.get(j);
+                    if (a.getX() == b.getX() && a.getY() == b.getY()) {
+                        Creature attacker = whoAttacks(a, i, b, j);
+                        collision(attacker, attacker == a ? b : a);
+                    }
+                }
+            }
+        }
+    }
+
+    private void collision(Creature a, Creature b) {
+        if (!a.isAlive() || !b.isAlive()) {
+            return;
+        }
+
+        if (a instanceof Turtle || b instanceof Turtle) {
+            Creature attacker = b;
+            if (b instanceof Turtle) {
+                attacker = a;
+            }
+            if (attacker.getStrength() < 5) {
+                attacker.cancelMove();
+                return;
+            }
+        }
+        if (a instanceof Antilope || b instanceof Antilope) {
+            Antilope antilope = (Antilope) (a instanceof Antilope ? a : b);
+            if (new Random().nextInt(2) == 0) {
+                antilope.flee();
+                addEvent("antilope escaped the battle");
+                return;
+            }
+        }
+        if (a instanceof Guarana || b instanceof Guarana) {
+            Creature animal = (a instanceof Guarana) ? b : a;
+            if (animal instanceof Animal) {
+                animal.setStrength(animal.getStrength() + 3);
+                return;
+            }
+        }
+        if (a instanceof NightShade || b instanceof NightShade) {
+            Creature animal = (a instanceof NightShade) ? b : a;
+            if (animal instanceof Animal) {
+                Creature nightshade = animal==a?b:a;
+                if(animal.getStrength() < nightshade.getStrength()){
+                    kill(nightshade, animal);
+                }
+                return;
+            }
+        }
+    }
+
+    private Creature whoAttacks(Creature a, int i, Creature b, int j) {
+        if (a.getPriority() > b.getPriority()) {
+            return a;
+        } else if (a.getPriority() < b.getPriority()) {
+            return b;
+        }
+
+        if (a.getStrength() > b.getStrength()) {
+            return a;
+        } else if (a.getStrength() < b.getStrength()) {
+            return b;
+        }
+
+        if (i > j) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    public void kill(Creature killer, Creature victim) {
+        victim.kill();
+        corpses.add(victim);
+        addEvent(killer.getClass().getSimpleName() + " (" + killer.getX()+","+killer.getY() + ") kills" + victim.getClass().getSimpleName() + " (" +victim.getX()+","+victim.getY() + ")");
+        // TODO: Message to screen
     }
 
     public void playerMove(Direction dir) {
@@ -96,8 +207,8 @@ public class GameWorld {
     }
 
     public Creature getCreature(int x, int y) {
-        for(Creature c : creatures){
-            if(c.getX() == x && c.getY() == y){
+        for (Creature c : creatures) {
+            if (c.getX() == x && c.getY() == y) {
                 return c;
             }
         }
