@@ -37,12 +37,18 @@ public abstract class Animal extends Creature {
     public void update() {
         Random r = new Random();
         int d = r.nextInt(Direction.values().length);
+        if (!canMove(Direction.values()[d])) {
+            d = 0;
+            do {
+                d++;
+            } while (!canMove(Direction.values()[d]));
+        }
         move(Direction.values()[d]);
     }
 
 
     @Override
-    public void collide(Creature c){
- // FIXME
+    public void collide(Creature c) {
+        // FIXME
     }
 }

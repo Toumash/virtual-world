@@ -10,19 +10,21 @@ import java.awt.*;
 
 public abstract class Creature implements Drawable, Cloneable {
     protected GameWorld gameWorld;
-    private Position coords;
     int strength;
     int priority;
+    boolean alive = true;
+    private Position coords;
 
     public Creature(GameWorld gameWorld, int x, int y, int strength, int priority) {
         this.gameWorld = gameWorld;
-        this.coords = new Position(x,y);
+        this.coords = new Position(x, y);
         this.strength = strength;
         this.priority = priority;
     }
 
     @Override
     public abstract void draw(Graphics g, double scaleX, double scaleY);
+
     public abstract void update();
 
     protected Direction findFreeSpace() {
@@ -39,6 +41,14 @@ public abstract class Creature implements Drawable, Cloneable {
     }
 
     public abstract void collide(Creature c);
+
+    public void kill() {
+        alive = false;
+    }
+
+    public boolean isAlive() {
+        return this.alive;
+    }
 
     public boolean Move(Direction d) {
         if (canMove(d)) {

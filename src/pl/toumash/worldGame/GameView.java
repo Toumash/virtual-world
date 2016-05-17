@@ -130,19 +130,33 @@ class GameView extends JPanel implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        gameGameWorld.update();
-        this.repaint();
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        Direction dir = null;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                dir = Direction.up;
+                break;
+            case KeyEvent.VK_S:
+                dir = Direction.down;
+                break;
+            case KeyEvent.VK_A:
+                dir = Direction.left;
+                break;
+            case KeyEvent.VK_D:
+                dir = Direction.right;
+                break;
+        }
+        if (dir != null) {
+            gameGameWorld.playerMove(dir);
+        }
         gameGameWorld.update();
         this.repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        gameGameWorld.update();
-        this.repaint();
     }
 }

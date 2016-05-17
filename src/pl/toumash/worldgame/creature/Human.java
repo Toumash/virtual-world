@@ -11,4 +11,9 @@ public class Human extends Animal {
         super(w, x, y, 5, 4, Color.blue);
     }
 
+    @Override
+    public void update(){
+        // DO NOTHING
+        // GameView Handles human Movement
+    }
 }

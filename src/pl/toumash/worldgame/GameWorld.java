@@ -82,7 +82,16 @@ public class GameWorld {
 
     public void update() {
         for (Creature c : creatures) {
-            c.update();
+            if (c.isAlive()) {
+                c.update();
+            }
+        }
+    }
+
+    public void playerMove(Direction dir) {
+        if (player != null) {
+            if (player.canMove(dir))
+                player.move(dir);
         }
     }
 }
