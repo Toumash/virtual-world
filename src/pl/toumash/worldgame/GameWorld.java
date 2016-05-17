@@ -6,17 +6,18 @@ import pl.toumash.worldgame.creature.Wolf;
 import java.awt.*;
 import java.util.ArrayList;
 
-class World {
+public class GameWorld {
     private ArrayList<Creature> creatures = new ArrayList<>();
+    private Creature player;
     private int width, height;
 
-    World(int width, int height) {
+    GameWorld(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
     public void randominit() {
-        creatures.add(new Wolf(5, 5));
+        creatures.add(new Wolf(this, 5, 5));
     }
 
     public int getWidth() {
@@ -38,11 +39,15 @@ class World {
     }
 
     public boolean isOccupied(int x, int y) {
-                for(Creature c : creatures){
-                    if(c.getX() == x && c.getY() ==y){
-                        return true;
-                    }
-                }
+        for (Creature c : creatures) {
+            if (c.getX() == x && c.getY() == y) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    public boolean inBounds(int x, int y) {
+        return (x >= 0 && x < getWidth()) && (y >= 0 && y < getHeight());
     }
 }

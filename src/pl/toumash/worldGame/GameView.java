@@ -5,19 +5,22 @@ import pl.toumash.worldgame.creature.CreaturesFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-class GameView extends JPanel {
+class GameView extends JPanel implements KeyListener {
     int cursorX, cursorY;
-    private World world;
+    private GameWorld gameGameWorld;
     private JFrame jFrame;
     private JPopupMenu jPopupMenu = new JPopupMenu("Spawn Creature");
+    private int counter = 0;
 
     public GameView() {
-        world = new World(20, 20);
-        world.randominit();
+        gameGameWorld = new GameWorld(20, 20);
+        gameGameWorld.randominit();
     }
 
     public static void main(String[] args) {
@@ -25,11 +28,11 @@ class GameView extends JPanel {
     }
 
     public double getScaleX() {
-        return getWidth() / world.getWidth();
+        return getWidth() / gameGameWorld.getWidth();
     }
 
     public double getScaleY() {
-        return getHeight() / world.getHeight();
+        return getHeight() / gameGameWorld.getHeight();
     }
 
     void showDialog(String message, String caption, int messageType) {
@@ -58,12 +61,12 @@ class GameView extends JPanel {
                 int x = (int) (cursorX / getScaleX());
                 int y = (int) (cursorY / getScaleY());
 
-                if (world.isOccupied(x, y)) {
-                    world.spawn(CreaturesFactory.create(creature, x, y));
+                if (!gameGameWorld.isOccupied(x, y)) {
+                    gameGameWorld.spawn(CreaturesFactory.create(gameGameWorld, creature, x, y));
                     System.out.println("spawning " + creature.name() + "(" + x + "," + y + ")");
                     GameView.this.repaint();
                 } else {
-                    showDialog("Choose a free area", "ERROR", Dialog.ERROR);
+                    showDialog("Choose a free area", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             });
             jPopupMenu.add(item);
@@ -102,7 +105,8 @@ class GameView extends JPanel {
         super.paintComponent(g);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        world.draw(g, getScaleX(), getScaleY());
+        gameGameWorld.draw(g, getScaleX(), getScaleY());
+        g.drawString(String.valueOf(counter++), 5, 10);
     }
 
 
@@ -121,5 +125,21 @@ class GameView extends JPanel {
 
         setUpMenu(this.jFrame);
         setUpPopUpMenu();
+        addKeyListener(this);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

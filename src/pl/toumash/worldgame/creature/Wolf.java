@@ -1,10 +1,12 @@
 package pl.toumash.worldgame.creature;
 
+import pl.toumash.worldgame.GameWorld;
+
 import java.awt.*;
 
 public class Wolf extends Animal {
-    public Wolf(int x, int y) {
-        super(x, y, Color.white);
+    public Wolf(GameWorld w, int x, int y) {
+        super(w,x, y, Color.white);
     }
 
     @Override
