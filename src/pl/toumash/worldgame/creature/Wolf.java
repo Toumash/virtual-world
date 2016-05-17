@@ -10,8 +10,4 @@ public class Wolf extends Animal {
         super(w, x, y, 9, 5, Color.white);
     }
 
-    @Override
-    public void collide(Creature c) {
-
-    }
 }

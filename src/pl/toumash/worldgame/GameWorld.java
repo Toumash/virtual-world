@@ -1,6 +1,7 @@
 package pl.toumash.worldgame;
 
 import pl.toumash.worldgame.creature.Creature;
+import pl.toumash.worldgame.creature.Human;
 import pl.toumash.worldgame.creature.Wolf;
 
 import java.awt.*;
@@ -18,6 +19,9 @@ public class GameWorld {
 
     public void randominit() {
         creatures.add(new Wolf(this, 5, 5));
+        Human h = new Human(this, getWidth() / 2, getHeight() / 2);
+        creatures.add(h);
+        this.player = h;
     }
 
     public int getWidth() {

@@ -42,5 +42,7 @@ public abstract class Animal extends Creature {
 
 
     @Override
-    public abstract void collide(Creature c);
+    public void collide(Creature c){
+ // FIXME
+    }
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 public class Turtle extends Animal {
 
     public Turtle(GameWorld w, int x, int y) {
-        super(w, x, y, 2, 1, Color.white);
+        super(w, x, y, 2, 1, Color.green);
     }
 
     @Override
@@ -18,10 +18,5 @@ public class Turtle extends Animal {
         if(test == 0){
             super.update();
         }
-    }
-
-    @Override
-    public void collide(Creature c) {
-
     }
 }
