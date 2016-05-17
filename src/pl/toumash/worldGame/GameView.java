@@ -17,7 +17,6 @@ class GameView extends JPanel implements KeyListener {
     private GameWorld gameWorld;
     private JFrame jFrame;
     private JPopupMenu jPopupMenu = new JPopupMenu("Spawn Creature");
-    private int counter = 0;
 
     public GameView() {
         gameWorld = new GameWorld(20, 20);
@@ -29,7 +28,7 @@ class GameView extends JPanel implements KeyListener {
     }
 
     public double getScaleX() {
-        return getWidth() / gameWorld.getWidth();
+        return (getWidth() - getEventsWidth()) / gameWorld.getWidth();
     }
 
     public double getScaleY() {
@@ -57,7 +56,10 @@ class GameView extends JPanel implements KeyListener {
         bar.add(options);
 
         JMenuItem exit = new JMenuItem("Exit");
-        exit.addActionListener(e -> System.exit(0));
+        exit.addActionListener(e -> {
+            showDialog("Dont leave me!", ":C", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        });
         gameMenu.add(exit);
         frame.setJMenuBar(bar);
     }
@@ -145,15 +147,26 @@ class GameView extends JPanel implements KeyListener {
         });
     }
 
+    public int getEventsWidth() {
+        return (int) (getWidth() * 0.3);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         g.fillRect(0, 0, getWidth(), getHeight());
 
         gameWorld.draw(g, getScaleX(), getScaleY());
-        g.drawString(String.valueOf(counter++), 5, 10);
-    }
 
+        g.setColor(Color.LIGHT_GRAY);
+        // paint events
+        int x = getWidth() - getEventsWidth();
+        int y = 0;
+        for (String s : gameWorld.getEvents()) {
+            g.drawString(s, x, y += 10);
+        }
+    }
 
     public void display() {
         jFrame = new JFrame("Game of Life <Toumash Dłuski 160741>");

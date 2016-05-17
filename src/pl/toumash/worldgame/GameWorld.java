@@ -14,11 +14,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameWorld implements Serializable{
+public class GameWorld implements Serializable {
     private ArrayList<Creature> creatures = new ArrayList<>();
     private ArrayList<Creature> corpses = new ArrayList<>();
     private Human player;
     private int width, height;
+    private ArrayList<String> events = new ArrayList<>(20);
 
     GameWorld(int width, int height) {
         this.width = width;
@@ -76,6 +77,10 @@ public class GameWorld implements Serializable{
         }
     }
 
+    public ArrayList<String> getEvents() {
+        return events;
+    }
+
     public boolean isOccupied(int x, int y) {
         for (Creature c : creatures) {
             if (c.getX() == x && c.getY() == y) {
@@ -115,6 +120,7 @@ public class GameWorld implements Serializable{
     }
 
     public void update() {
+        clearEvents();
         update(7);
         update(5);
         update(4);
@@ -122,6 +128,10 @@ public class GameWorld implements Serializable{
 
         checkCollisions();
         clearGarbage();
+    }
+
+    private void clearEvents() {
+        events.clear();
     }
 
     private void clearGarbage() {
@@ -138,8 +148,9 @@ public class GameWorld implements Serializable{
         }
     }
 
-    private void addEvent(String x) {
+    public void addEvent(String x) {
         System.out.println(x);
+        events.add(x);
     }
 
     private void checkCollisions() {
@@ -183,7 +194,7 @@ public class GameWorld implements Serializable{
         if (a instanceof Guarana || b instanceof Guarana) {
             Creature animal = (a instanceof Guarana) ? b : a;
             if (animal instanceof Animal) {
-                animal.setStrength(animal.getStrength() + 3);
+                animal.improveStrength(+3);
                 return;
             }
         }

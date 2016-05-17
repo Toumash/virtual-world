@@ -161,8 +161,8 @@ public abstract class Creature implements Drawable, Cloneable,Serializable {
         return strength;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
+    public void improveStrength(int delta){
+        this.strength += delta;
     }
 
     public int getPriority() {
