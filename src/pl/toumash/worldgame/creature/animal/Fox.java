@@ -8,7 +8,7 @@ import pl.toumash.worldgame.creature.DrawConfig;
 import java.util.Random;
 
 public class Fox extends Animal {
-    Fox(GameWorld w, int x, int y) {
+    public Fox(GameWorld w, int x, int y) {
         super(w, x, y, 3, 7, DrawConfig.FOX);
     }
 

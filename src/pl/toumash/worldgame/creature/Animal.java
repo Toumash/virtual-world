@@ -38,8 +38,5 @@ public abstract class Animal extends Creature {
         move(Direction.values()[d]);
     }
 
-    @Override
-    public void collide(Creature c) {
-        // FIXME
-    }
+
 }

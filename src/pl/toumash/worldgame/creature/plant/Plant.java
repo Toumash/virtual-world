@@ -1,10 +1,12 @@
 package pl.toumash.worldgame.creature.plant;
 
 
+import pl.toumash.worldgame.Direction;
 import pl.toumash.worldgame.GameWorld;
 import pl.toumash.worldgame.creature.Creature;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Plant extends Creature {
 
@@ -14,9 +16,23 @@ public class Plant extends Creature {
 
     @Override
     public void update() {
+        Random r = new Random();
+        int test = r.nextInt(100);
+        if (test > 80) {
+            spread();
+        }
     }
 
-    @Override
-    public void collide(Creature c) {
+    public void spread() {
+        Direction dir = null;
+        for (Direction d : Direction.values()) {
+            if (!gameWorld.isOccupied(getX(), getY(), d)) {
+                dir = d;
+            }
+        }
+        if (dir != null) {
+            spawn(dir);
+        }
     }
+
 }

@@ -8,4 +8,10 @@ public class Dandelion extends Plant {
     public Dandelion(GameWorld gameWorld, int x, int y) {
         super(gameWorld, x, y, 0, DrawConfig.DANDELION);
     }
+    @Override
+    public void update(){
+        super.update();
+        super.update();
+        super.update();
+    }
 }

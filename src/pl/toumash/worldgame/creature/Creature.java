@@ -37,11 +37,14 @@ public abstract class Creature implements Drawable, Cloneable {
         return null;
     }
 
+    public void collide(Creature c) {
+        Creature attacker = GameWorld.whoAttacks(this, 1, c, 0);
+        this.gameWorld.kill(attacker, attacker == this ? c : this);
+    }
+
     protected void spawn(Direction d) {
         gameWorld.spawn(this.clone().move(d));
     }
-
-    public abstract void collide(Creature c);
 
     public void kill() {
         alive = false;

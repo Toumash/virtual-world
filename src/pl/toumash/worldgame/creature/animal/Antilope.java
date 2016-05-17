@@ -29,9 +29,11 @@ public class Antilope extends Animal {
         if (!canMove(Direction.values()[secondMove]) || isBackTrack(Direction.values()[firstMove], Direction.values()[secondMove])) {
             secondMove = 0;
             do {
-                secondMove++;
+                if (secondMove + 1 < Direction.values().length) {
+                    secondMove++;
+                }
             }
-            while (firstMove < Direction.values().length
+            while (secondMove < Direction.values().length
                     && (!canMove(Direction.values()[secondMove])
                     || isBackTrack(Direction.values()[firstMove], Direction.values()[secondMove])));
         }

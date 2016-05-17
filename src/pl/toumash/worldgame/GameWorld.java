@@ -2,10 +2,10 @@ package pl.toumash.worldgame;
 
 import pl.toumash.worldgame.creature.Animal;
 import pl.toumash.worldgame.creature.Creature;
+import pl.toumash.worldgame.creature.CreaturesFactory;
 import pl.toumash.worldgame.creature.animal.Antilope;
 import pl.toumash.worldgame.creature.animal.Human;
 import pl.toumash.worldgame.creature.animal.Turtle;
-import pl.toumash.worldgame.creature.animal.Wolf;
 import pl.toumash.worldgame.creature.plant.Guarana;
 import pl.toumash.worldgame.creature.plant.NightShade;
 
@@ -25,7 +25,13 @@ public class GameWorld {
     }
 
     public void randominit() {
-        creatures.add(new Wolf(this, 5, 5));
+        Random r = new Random();
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                if (x != getWidth() / 2 && y != getHeight() / 2)
+                    creatures.add(CreaturesFactory.create(this, CreaturesFactory.Creatures.values()[r.nextInt(CreaturesFactory.Creatures.values().length)], x, y));
+            }
+        }
         Human h = new Human(this, getWidth() / 2, getHeight() / 2);
         creatures.add(h);
         this.player = h;
@@ -112,7 +118,7 @@ public class GameWorld {
     }
 
     private void addEvent(String x) {
-        //TODO: aading events
+        System.out.println(x);
     }
 
     private void checkCollisions() {
@@ -163,16 +169,17 @@ public class GameWorld {
         if (a instanceof NightShade || b instanceof NightShade) {
             Creature animal = (a instanceof NightShade) ? b : a;
             if (animal instanceof Animal) {
-                Creature nightshade = animal==a?b:a;
-                if(animal.getStrength() < nightshade.getStrength()){
+                Creature nightshade = animal == a ? b : a;
+                if (animal.getStrength() < nightshade.getStrength()) {
                     kill(nightshade, animal);
+                    return;
                 }
-                return;
             }
         }
+        a.collide(b);
     }
 
-    private Creature whoAttacks(Creature a, int i, Creature b, int j) {
+    public static Creature whoAttacks(Creature a, int i, Creature b, int j) {
         if (a.getPriority() > b.getPriority()) {
             return a;
         } else if (a.getPriority() < b.getPriority()) {
@@ -195,7 +202,7 @@ public class GameWorld {
     public void kill(Creature killer, Creature victim) {
         victim.kill();
         corpses.add(victim);
-        addEvent(killer.getClass().getSimpleName() + " (" + killer.getX()+","+killer.getY() + ") kills" + victim.getClass().getSimpleName() + " (" +victim.getX()+","+victim.getY() + ")");
+        addEvent(killer.getClass().getSimpleName() + " (" + killer.getX() + "," + killer.getY() + ") kills" + victim.getClass().getSimpleName() + " (" + victim.getX() + "," + victim.getY() + ")");
         // TODO: Message to screen
     }
 
