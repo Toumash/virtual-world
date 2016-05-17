@@ -1,17 +1,24 @@
 package pl.toumash.worldgame.creature;
 
 
+import pl.toumash.worldgame.Direction;
+import pl.toumash.worldgame.Drawable;
 import pl.toumash.worldgame.GameWorld;
+import pl.toumash.worldgame.Position;
 
 import java.awt.*;
 
 public abstract class Creature implements Drawable, Cloneable {
     protected GameWorld gameWorld;
     private Position coords;
+    int strength;
+    int priority;
 
-    Creature(GameWorld gameWorld, int x, int y) {
-        coords = new Position(x, y);
+    public Creature(GameWorld gameWorld, int x, int y, int strength, int priority) {
         this.gameWorld = gameWorld;
+        this.coords = new Position(x,y);
+        this.strength = strength;
+        this.priority = priority;
     }
 
     @Override

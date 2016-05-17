@@ -1,8 +1,6 @@
 package pl.toumash.worldgame;
 
 import pl.toumash.worldgame.creature.Creature;
-import pl.toumash.worldgame.creature.Direction;
-import pl.toumash.worldgame.creature.Position;
 import pl.toumash.worldgame.creature.Wolf;
 
 import java.awt.*;

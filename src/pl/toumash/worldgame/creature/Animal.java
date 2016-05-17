@@ -1,6 +1,7 @@
 package pl.toumash.worldgame.creature;
 
 
+import pl.toumash.worldgame.Direction;
 import pl.toumash.worldgame.GameWorld;
 
 import java.awt.*;
@@ -8,8 +9,8 @@ import java.awt.*;
 public abstract class Animal extends Creature {
     private Color color;
 
-    Animal(GameWorld w, int x, int y, Color c) {
-        super(w, x, y);
+    Animal(GameWorld w, int x, int y, int strength, int priority, Color c) {
+        super(w, x, y, strength, priority);
         this.color = c;
     }
 

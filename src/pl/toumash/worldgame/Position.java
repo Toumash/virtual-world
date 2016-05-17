@@ -1,4 +1,4 @@
-package pl.toumash.worldgame.creature;
+package pl.toumash.worldgame;
 
 public class Position implements Cloneable {
     public int x, y;
