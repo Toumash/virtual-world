@@ -23,6 +23,7 @@ public abstract class Creature implements Drawable, Cloneable {
 
     @Override
     public abstract void draw(Graphics g, double scaleX, double scaleY);
+    public abstract void update();
 
     protected Direction findFreeSpace() {
         for (Direction d : Direction.values()) {
@@ -47,12 +48,12 @@ public abstract class Creature implements Drawable, Cloneable {
         return false;
     }
 
-    private Creature move(Direction d) {
+    public Creature move(Direction d) {
         coords.move(d);
         return this;
     }
 
-    private boolean canMove(Direction d) {
+    public boolean canMove(Direction d) {
         // deltas
         int dX = 0;
         int dY = 0;

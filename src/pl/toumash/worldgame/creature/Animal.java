@@ -5,6 +5,7 @@ import pl.toumash.worldgame.Direction;
 import pl.toumash.worldgame.GameWorld;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Animal extends Creature {
     private Color color;
@@ -30,6 +31,12 @@ public abstract class Animal extends Creature {
         if (dir != null) {
             spawn(dir);
         }
+    }
+    @Override
+    public void update(){
+        Random r = new Random();
+        int d = r.nextInt();
+        move(Direction.values()[d]);
     }
 
 
