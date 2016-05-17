@@ -65,7 +65,9 @@ public abstract class Creature implements Drawable, Cloneable {
     public Creature move(Direction d) {
         this.prevCoords.setX(getX());
         this.prevCoords.setY(getY());
-        coords.move(d);
+        if(d != null) {
+            coords.move(d);
+        }
         return this;
     }
 
@@ -103,6 +105,9 @@ public abstract class Creature implements Drawable, Cloneable {
     }
 
     public boolean canMove(Direction d) {
+        if(d == null){
+            return true;
+        }
         // deltas
         int dX = 0;
         int dY = 0;

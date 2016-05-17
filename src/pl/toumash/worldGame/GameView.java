@@ -149,9 +149,8 @@ class GameView extends JPanel implements KeyListener {
                 dir = Direction.right;
                 break;
         }
-        if (dir != null) {
-            gameGameWorld.playerMove(dir);
-        }
+
+        gameGameWorld.playerMove(dir);
         gameGameWorld.update();
         this.repaint();
     }

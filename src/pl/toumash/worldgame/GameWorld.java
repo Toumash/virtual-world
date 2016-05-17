@@ -16,12 +16,32 @@ import java.util.Random;
 public class GameWorld {
     private ArrayList<Creature> creatures = new ArrayList<>();
     private ArrayList<Creature> corpses = new ArrayList<>();
-    private Creature player;
+    private Human player;
     private int width, height;
 
     GameWorld(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    public static Creature whoAttacks(Creature a, int i, Creature b, int j) {
+        if (a.getPriority() > b.getPriority()) {
+            return a;
+        } else if (a.getPriority() < b.getPriority()) {
+            return b;
+        }
+
+        if (a.getStrength() > b.getStrength()) {
+            return a;
+        } else if (a.getStrength() < b.getStrength()) {
+            return b;
+        }
+
+        if (i > j) {
+            return a;
+        } else {
+            return b;
+        }
     }
 
     public void randominit() {
@@ -179,26 +199,6 @@ public class GameWorld {
         a.collide(b);
     }
 
-    public static Creature whoAttacks(Creature a, int i, Creature b, int j) {
-        if (a.getPriority() > b.getPriority()) {
-            return a;
-        } else if (a.getPriority() < b.getPriority()) {
-            return b;
-        }
-
-        if (a.getStrength() > b.getStrength()) {
-            return a;
-        } else if (a.getStrength() < b.getStrength()) {
-            return b;
-        }
-
-        if (i > j) {
-            return a;
-        } else {
-            return b;
-        }
-    }
-
     public void kill(Creature killer, Creature victim) {
         victim.kill();
         corpses.add(victim);
@@ -207,9 +207,9 @@ public class GameWorld {
     }
 
     public void playerMove(Direction dir) {
-        if (player != null) {
+        if (player != null && player.isAlive()) {
             if (player.canMove(dir))
-                player.move(dir);
+                player.setNextMove(dir);
         }
     }
 
